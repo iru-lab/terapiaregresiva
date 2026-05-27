@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terapia Regresiva — Centro de Sanación</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Georgia', serif;
+            color: #333;
+            background: #ffffff;
+            position: relative;
+        }
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background: url('logoTR%20tipo%202.webp') center/cover no-repeat;
+            filter: blur(20px);
+            opacity: 0.15;
+            z-index: -1;
+        }
+
+        /* Header / Nav */
+        nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(240, 194, 127, 0.3);
+        }
+        .logo {
+            font-size: 1.3rem;
+            color: #f0c27f;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 2rem;
+        }
+        nav ul li a {
+            color: #555;
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: color 0.3s;
+        }
+        nav ul li a:hover { color: #f0c27f; }
+
+        /* Hero */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 6rem 2rem 4rem;
+            background: radial-gradient(ellipse at center, #fdf6e3 0%, #ffffff 70%);
+        }
+        .hero h1 {
+            font-size: 4rem;
+            color: #f0c27f;
+            letter-spacing: 3px;
+            margin-bottom: 1rem;
+        }
+        .hero .tagline {
+            font-size: 1.3rem;
+            color: #666;
+            font-style: italic;
+            max-width: 600px;
+            margin-bottom: 2rem;
+        }
+        .btn {
+            display: inline-block;
+            padding: 0.9rem 2.5rem;
+            background: transparent;
+            color: #f0c27f;
+            border: 1px solid #f0c27f;
+            border-radius: 30px;
+            text-decoration: none;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+        .btn:hover {
+            background: #f0c27f;
+            color: #ffffff;
+        }
+
+        /* Sections */
+        section {
+            padding: 5rem 2rem;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+        section h2 {
+            text-align: center;
+            font-size: 2.2rem;
+            color: #f0c27f;
+            margin-bottom: 0.5rem;
+        }
+        .section-divider {
+            width: 50px;
+            height: 2px;
+            background: #f0c27f;
+            margin: 1rem auto 3rem;
+        }
+
+        /* About */
+        #about p {
+            text-align: center;
+            max-width: 750px;
+            margin: 0 auto;
+            line-height: 1.9;
+            font-size: 1.05rem;
+        }
+
+        /* Services */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+        .service-card {
+            background: #fafafa;
+            border: 1px solid rgba(240, 194, 127, 0.3);
+            border-radius: 16px;
+            padding: 2rem;
+            text-align: center;
+            transition: transform 0.3s, border-color 0.3s;
+        }
+        .service-card:hover {
+            transform: translateY(-6px);
+            border-color: #f0c27f;
+        }
+        .service-card .icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        .service-card h3 {
+            color: #f0c27f;
+            margin-bottom: 0.8rem;
+        }
+        .service-card p {
+            font-size: 0.95rem;
+            line-height: 1.7;
+            color: #555;
+        }
+
+        /* Testimonials */
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        .testimonial {
+            background: #fafafa;
+            border-radius: 16px;
+            padding: 2rem;
+            border: 1px solid rgba(240, 194, 127, 0.3);
+        }
+        .testimonial p {
+            font-style: italic;
+            line-height: 1.8;
+            margin-bottom: 1rem;
+            color: #555;
+        }
+        .testimonial .author {
+            color: #f0c27f;
+            font-style: normal;
+            font-weight: bold;
+        }
+
+        /* Contact */
+        #contact {
+            text-align: center;
+        }
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+        .contact-info p {
+            font-size: 1.05rem;
+        }
+        .contact-info a {
+            color: #f0c27f;
+            text-decoration: none;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 2rem;
+            border-top: 1px solid rgba(240, 194, 127, 0.3);
+            color: #999;
+            font-size: 0.85rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            nav ul { gap: 1rem; }
+            .hero h1 { font-size: 2.5rem; }
+            section { padding: 3rem 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Nav -->
+    <nav>
+        <div style="display:flex; align-items:center; gap:0.6rem;">
+            <img src="logoTR%20tipo%202.webp" alt="Terapia Regresiva" style="height:36px; width:auto;"> 
+            <span class="logo" style="font-style: italic;">Terapia Regresiva o Terapia del alma</span>
+        </div>
+        <ul>
+            <li><a href="#about">Sobre mí</a></li>
+            <li><a href="#services">Servicios</a></li>
+            <li><a href="#testimonials">Testimonios</a></li>
+            <li><a href="#contact">Contacto</a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero -->
+  <!--  <section class="hero">
+        <h1>Terapia Regresiva</h1>
+        <p class="tagline">Explora tu pasado, sana tu presente, transforma tu futuro.</p> 
+         <h2><p class="tagline" style="text-transform:uppercase; font-style:normal;">Imagina que desaparecen tus dolencias</p> </h2>
+       
+        <p>
+            <span style="font-family:'Georgia',serif; font-size:0.95rem; color:#555; font-weight:bold;">Dolencias psicosomáticas</span> </br>
+            <span style="font-family:'Georgia',serif; font-size:0.95rem; color:#555;">Traumas de infancia</span> </br>
+            <span style="font-family:'Georgia',serif; font-size:0.95rem; color:#555;">Fobias sin explicación</span> </br>
+            Soy terapeuta especializada en regresión consciente con más de 10 años
+            acompañando a personas en su proceso de sanación. Mi enfoque combina
+            la hipnosis regresiva con técnicas de respiración y visualización guiada,
+            creando un espacio seguro donde puedas explorar tu mundo interior sin juicios.
+            Cada sesión es un viaje único, respetuoso y transformador.
+        </p>
+    
+        <a href="#contact" class="btn">Agenda tu sesión</a>
+    </section> -->
+ <!-- Hero al revés-->
+   <section class="hero" >
+        <h1 style="font-style:normal;font-weight:bold;">Imagina que desaparecen tus dolencias</h1>
+ 
+         <h2><p class="tagline" style="font-style:normal;">Descubre la terapia del alma</p> </h2>
+          
+        <a href="#contact" class="btn">Programa tu sesión</a>
+    </section> 
+<!-- Qué es-->
+      <section id="Whatis">
+        <h2>¿Qué es la terapia regresiva?</h2>
+        <div class="section-divider"></div>
+        <p style="text-align:justify; line-height:1.5;">
+            También llamada terapia del alma, es una terapia complementaria, transpersonal que se activa porque el ser humano de forma espontánea es capaz de entrar en estado expandido de conciencia al conectar con una emoción, con una sensación o con un síntoma cuyo origen desconoce. El estado expandido de conciencia consiste en conectar con tu inconsciente, con tu alma, y permitirle que cuente aquello que necesite contar. 
+        </p>
+    </section>
+<!-- Qué sana-->
+      <section id="Whatheals">
+        <h2>¿En qué procesos es aconsejable la terapia regresiva?</h2>
+        <div class="section-divider"></div>
+        <p style="text-align:center; line-height:1.5;">
+            Si existen <strong>dolencias psicosomáticas</strong>, aquellas dolencias cuyo origen no encontramos explicación. </br>
+            Cuando se quieren resolver <strong>traumas de infancia</strong> o encontrar explicación a <strong>conflictos familiares.</strong> </br>
+            Si hay <strong>fobias sin explicación</strong>, como puede ser el miedo a las agujas o a volar, entre otros. </br>
+           
+        </p>
+    </section>
+
+    <!-- Qué debo saber del proceso-->
+      <section id="WhatIshouldknow">
+        <h2>¿Qué debo saber del proceso?</h2>
+        <div class="section-divider"></div>
+        <p style="text-align:justify; line-height:1.5;">
+           El trabajo se realiza sobre la base de la comprensión, la compasión, el perdón y el amor y requieren que el paciente se implique en su proceso de sanación consciente.
+        </p>
+    </section>
+     <!-- About -->
+    <section id="about">
+        <h2>Sobre mí</h2>
+        <div class="section-divider"></div>
+        <p>
+            Es una terapia transpersonal que se activa porque el ser humano de forma espontánea es capaz de entrar en EEC al conectar con una emoción, con una sensación o con un síntoma cuyo origen desconozco. 
+            Soy terapeuta especializada en regresión consciente con más de 10 años
+            acompañando a personas en su proceso de sanación. Mi enfoque combina
+            la hipnosis regresiva con técnicas de respiración y visualización guiada,
+            creando un espacio seguro donde puedas explorar tu mundo interior sin juicios.
+            Cada sesión es un viaje único, respetuoso y transformador.
+        </p>
+    </section>
+
+    <!-- Services -->
+    <section id="services">
+        <h2>Servicios</h2>
+        <div class="section-divider"></div>
+        <div class="services-grid">
+            <div class="service-card">
+                <div class="icon">&#9733;</div>
+                <h3>Sesión Individual</h3>
+                <p>Sesión personalizada de 90 minutos donde exploramos el origen de tus bloqueos actuales a través de la regresión guiada.</p>
+            </div>
+            <div class="service-card">
+                <div class="icon">&#9733;</div>
+                <h3>Programa de Sanación</h3>
+                <p>6 sesiones estructuradas para trabajar en profundidad patrones recurrentes, traumas de infancia y liberación emocional.</p>
+            </div>
+            <div class="service-card">
+                <div class="icon">&#9733;</div>
+                <h3>Sesión Online</h3>
+                <p>La misma calidad y profundidad desde la comodidad de tu hogar, a través de videollamada en un entorno seguro.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section id="testimonials">
+        <h2>Testimonios</h2>
+        <div class="section-divider"></div>
+        <div class="testimonials-grid">
+            <div class="testimonial">
+                <p>"La sesión de regresión fue una de las experiencias más reveladoras de mi vida. Pude entender el origen de mi ansiedad y liberarme de cargas que llevaba años arrastrando."</p>
+                <span class="author">— Ana M.</span>
+            </div>
+            <div class="testimonial">
+                <p>"Llegué con mucho escepticismo y me fui completamente transformada. El profesionalismo y la calidez con que se maneja cada sesión hacen que te sientas segura en todo momento."</p>
+                <span class="author">— Carlos R.</span>
+            </div>
+            <div class="testimonial">
+                <p>"Después de años de terapia convencional sin resultados, la regresión fue lo que realmente destapó las raíces de mis problemas. Recomendadísimo."</p>
+                <span class="author">— Laura G.</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact">
+        <h2>Contacto</h2>
+        <div class="section-divider"></div>
+        <p style="margin-bottom:1.5rem; font-size:1.1rem;">
+            ¿Listo para comenzar tu viaje? Escríbeme y te contaré cómo funciona.
+        </p>
+        <div class="contact-info">
+            <p>&#9993; <a href="mailto:terapiaregresivalogrono@proton.me">terapiaregresivalogrono@proton.me</a></p>
+            <p>&#9742; <a href="tel:+34616108741">(+34) 616 108 741</a></p>
+            <p>&#128205; Logroño</p>
+        </div>
+        <a href="mailto:terapiaregresivalogrono@proton.me" class="btn">Enviar correo</a>
+    </section>
+
+    <footer>
+        &copy; 2026 Terapia Regresiva &mdash; Todos los derechos reservados
+    </footer>
+
+</body>
+</html>
